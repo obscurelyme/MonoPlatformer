@@ -1,0 +1,21 @@
+# Build results
+bin/
+obj/
+Content/bin/
+Content/obj/
+
+# User-specific files
+*. suo
+*.user
+*.userosscache
+*.sln. docstates
+
+# MonoGame
+*. mgcb. cache
+
+# Visual Studio
+.vs/
+*.vscode/
+
+# Rider
+.idea/

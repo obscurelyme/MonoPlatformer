@@ -1,0 +1,64 @@
+name: Build and Deploy to Itch.io
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch: # Allows manual triggering
+
+env:
+  PROJECT_NAME: MyPlatformer
+  ITCH_USER: obscurelyme # Your itch.io username
+  ITCH_GAME: my-platformer # Your game's itch.io slug
+
+jobs:
+  build-windows:
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup . NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "9.0.x"
+
+      - name: Restore dependencies
+        run: dotnet restore
+
+      - name: Build Windows version
+        run: |
+          dotnet publish -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true -p: IncludeNativeLibrariesForSelfExtract=true -o ./build/windows
+
+      - name: Upload Windows build artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: windows-build
+          path: ./build/windows
+
+  deploy-to-itch:
+    needs: build-windows
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+
+    steps:
+      - name: Download Windows build
+        uses: actions/download-artifact@v4
+        with:
+          name: windows-build
+          path: ./build/windows
+
+      - name: Install Butler (Itch.io CLI)
+        run: |
+          curl -L -o butler.zip https://broth. itch.ovh/butler/linux-amd64/LATEST/archive/default
+          unzip butler.zip
+          chmod +x butler
+          ./butler -V
+
+      - name: Deploy to Itch.io
+        env:
+          BUTLER_API_KEY: ${{ secrets. ITCH_IO_API_KEY }}
+        run: |
+          ./butler push ./build/windows ${{ env.ITCH_USER }}/${{ env.ITCH_GAME }}: windows --userversion "${{ github.sha }}"
