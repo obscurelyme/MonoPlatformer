@@ -7,6 +7,8 @@ namespace MonoPlatformer;
 
 public class Application : Core
 {
+    private Texture2D _logo;
+
     public Application() : base("Dungeon Slime", 1280, 720, false)
     {
     }
@@ -21,8 +23,8 @@ public class Application : Core
     protected override void LoadContent()
     {
         // TODO: use this.Content to load your game content here
-
         base.LoadContent();
+        _logo = Content.Load<Texture2D>("images/logo");
     }
 
     protected override void Update(GameTime gameTime)
@@ -37,9 +39,12 @@ public class Application : Core
 
     protected override void Draw(GameTime gameTime)
     {
-        GraphicsDevice.Clear(Color.MonoGameOrange);
+        GraphicsDevice.Clear(Color.CornflowerBlue);
 
         // TODO: Add your drawing code here
+        SpriteBatch.Begin();
+        SpriteBatch.Draw(_logo, Vector2.Zero, Color.White);
+        SpriteBatch.End();
 
         base.Draw(gameTime);
     }
