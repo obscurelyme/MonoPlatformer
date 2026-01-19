@@ -4,12 +4,12 @@ using Microsoft.Xna.Framework.Input;
 
 namespace MonoPlatformer;
 
-public class Game1 : Game
+public class Application : Game
 {
     private GraphicsDeviceManager _graphics;
     private SpriteBatch _spriteBatch;
 
-    public Game1()
+    public Application()
     {
         _graphics = new GraphicsDeviceManager(this);
         Content.RootDirectory = "Content";
@@ -42,7 +42,7 @@ public class Game1 : Game
 
     protected override void Draw(GameTime gameTime)
     {
-        GraphicsDevice.Clear(Color.CornflowerBlue);
+        GraphicsDevice.Clear(Color.MonoGameOrange);
 
         // TODO: Add your drawing code here
 
