@@ -7,66 +7,66 @@ namespace MonoGameLibrary;
 
 public class Core : Game
 {
-  internal static Core s_Instance;
+    internal static Core s_Instance;
 
-  public static Core Instance => s_Instance;
+    public static Core Instance => s_Instance;
 
-  public static GraphicsDeviceManager Graphics
-  {
-    get;
-    private set;
-  }
-
-  public static new GraphicsDevice GraphicsDevice
-  {
-    get;
-    private set;
-  }
-
-  public static SpriteBatch SpriteBatch
-  {
-    get;
-    private set;
-  }
-
-  public static new ContentManager Content
-  {
-    get;
-    private set;
-  }
-
-  public Core(string title, int width, int height, bool fullScreen)
-  {
-    if (s_Instance != null)
+    public static GraphicsDeviceManager Graphics
     {
-      throw new InvalidOperationException($"Only a single Core instance can be created");
+        get;
+        private set;
     }
 
-    s_Instance = this;
+    public static new GraphicsDevice GraphicsDevice
+    {
+        get;
+        private set;
+    }
 
-    Graphics = new GraphicsDeviceManager(this);
+    public static SpriteBatch SpriteBatch
+    {
+        get;
+        private set;
+    }
 
-    Graphics.PreferredBackBufferWidth = width;
-    Graphics.PreferredBackBufferHeight = height;
-    Graphics.IsFullScreen = fullScreen;
+    public static new ContentManager Content
+    {
+        get;
+        private set;
+    }
 
-    Graphics.ApplyChanges();
+    public Core(string title, int width, int height, bool fullScreen)
+    {
+        if (s_Instance != null)
+        {
+            throw new InvalidOperationException($"Only a single Core instance can be created");
+        }
 
-    Window.Title = title;
+        s_Instance = this;
 
-    Content = base.Content;
+        Graphics = new GraphicsDeviceManager(this);
 
-    Content.RootDirectory = "Content";
+        Graphics.PreferredBackBufferWidth = width;
+        Graphics.PreferredBackBufferHeight = height;
+        Graphics.IsFullScreen = fullScreen;
 
-    IsMouseVisible = true;
-  }
+        Graphics.ApplyChanges();
 
-  protected override void Initialize()
-  {
-    base.Initialize();
+        Window.Title = title;
 
-    GraphicsDevice = base.GraphicsDevice;
+        Content = base.Content;
 
-    SpriteBatch = new SpriteBatch(GraphicsDevice);
-  }
+        Content.RootDirectory = "Content";
+
+        IsMouseVisible = true;
+    }
+
+    protected override void Initialize()
+    {
+        base.Initialize();
+
+        GraphicsDevice = base.GraphicsDevice;
+
+        SpriteBatch = new SpriteBatch(GraphicsDevice);
+    }
 }
