@@ -8,9 +8,9 @@ namespace MonoPlatformer;
 
 public class Application : Core
 {
-    private TextureRegion _slime;
+    private Sprite _slime;
 
-    private TextureRegion _bat;
+    private Sprite _bat;
 
     public Application() : base("Dungeon Slime", 1280, 720, false)
     {
@@ -28,8 +28,11 @@ public class Application : Core
         base.LoadContent();
         TextureAtlas atlas = TextureAtlas.FromFile(Content, "images/atlas-definition.xml");
 
-        _slime = atlas.GetRegion("slime");
-        _bat = atlas.GetRegion("bat");
+        _slime = atlas.CreateSprite("slime");
+        _slime.Scale = new Vector2(4.0f, 4.0f);
+
+        _bat = atlas.CreateSprite("bat");
+        _bat.Scale = new Vector2(4.0f, 4.0f);
     }
 
     protected override void Update(GameTime gameTime)
@@ -48,8 +51,8 @@ public class Application : Core
 
         SpriteBatch.Begin(samplerState: SamplerState.PointClamp);
 
-        _slime.Draw(SpriteBatch, Vector2.Zero, Color.White, 0.0f, Vector2.One, 4.0f, SpriteEffects.None, 0.0f);
-        _bat.Draw(SpriteBatch, new Vector2(_slime.Width * 4.0f + 10, 0), Color.White, 0.0f, Vector2.One, 4.0f, SpriteEffects.None, 1.0f);
+        _slime.Draw(SpriteBatch, Vector2.Zero);
+        _bat.Draw(SpriteBatch, new Vector2(_slime.Width + 10, 0));
 
         SpriteBatch.End();
 
