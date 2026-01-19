@@ -8,14 +8,14 @@ Content/obj/
 *. suo
 *.user
 *.userosscache
-*.sln. docstates
+*.sln.docstates
 
 # MonoGame
-*. mgcb. cache
+*.mgcb.cache
 
 # Visual Studio
 .vs/
-*.vscode/
+.vscode/
 
 # Rider
 .idea/
