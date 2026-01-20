@@ -3,6 +3,7 @@ bin/
 obj/
 Content/bin/
 Content/obj/
+build/
 
 # User-specific files
 *. suo

@@ -30,7 +30,7 @@ jobs:
 
       - name: Build Windows version
         run: |
-          dotnet publish -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true -p: IncludeNativeLibrariesForSelfExtract=true -o ./build/windows
+          dotnet publish -c Release -r win-x64 -p:PublishReadyToRun=false -p:TieredCompilation=false -p:PublishAot=true --self-contained
 
       - name: Upload Windows build artifact
         uses: actions/upload-artifact@v4
